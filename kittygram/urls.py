@@ -1,8 +1,16 @@
+from rest_framework.routers import SimpleRouter
+
 from django.urls import include, path
 
-from cats.views import CatList, CatDetail
+from cats.views import CatViewSet
+
+# Создаётся роутер
+router = SimpleRouter()
+# Вызываем метод .register с нужными параметрами
+router.register('cats', CatViewSet)
 
 urlpatterns = [
-    path('cats/', CatList.as_view()),
-    path('cats/<int:pk>/', CatDetail.as_view()),
+    # Все зарегистрированные в router пути доступны в router.urls
+    # Включим их в головной urls.py
+    path('', include(router.urls)),
 ]
